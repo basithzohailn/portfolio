@@ -90,13 +90,18 @@ body::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 99, 235, 0.06), transparent 40%);
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 99, 235, 0.08), transparent 40%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 2;
 }
 .spotlight-card:hover::after {
   opacity: 1;
+}
+/* Stronger spotlight for project glow cards */
+.glow-card.spotlight-card::after {
+  background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 99, 235, 0.12), transparent 40%);
 }
 
 /* Blur reveal animation for headings */
@@ -262,7 +267,8 @@ a, button, [role="button"], input[type="submit"] {
   position: relative;
   border-radius: 1rem;
   background: var(--color-surface);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .glow-card::before {
   content: '';
@@ -270,7 +276,7 @@ a, button, [role="button"], input[type="submit"] {
   inset: -2px;
   border-radius: inherit;
   background: conic-gradient(from var(--glow-angle), transparent 0deg, #2563eb 60deg, #0ea5e9 120deg, transparent 180deg, transparent 360deg);
-  opacity: 0;
+  opacity: 0.25;
   transition: opacity 0.4s ease;
   animation: rotate-glow 3s linear infinite;
   z-index: 0;
@@ -279,12 +285,14 @@ a, button, [role="button"], input[type="submit"] {
   opacity: 1;
 }
 .glow-card:hover {
+  border-color: transparent;
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.12);
+  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.15);
 }
 .glow-card:focus-within {
+  border-color: transparent;
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.12);
+  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.15);
 }
 .glow-card:focus-within::before {
   opacity: 1;

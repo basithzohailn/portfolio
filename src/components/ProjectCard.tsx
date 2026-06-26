@@ -73,7 +73,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           </div>
         </div>
         {/* Project image — cropped to top half */}
-        <div className="aspect-[16/5] bg-gradient-to-br from-accent-light via-accent/5 to-accent-sky/5 relative overflow-hidden">
+        <div className="aspect-[16/7.5] bg-gradient-to-br from-accent-light via-accent/5 to-accent-sky/5 relative overflow-hidden">
           <img
             src={project.image}
             alt={`${project.title} preview`}
