@@ -16,7 +16,7 @@ const projects = [
     image: '/portfolio/images/projects/org-designer.png',
   },
   {
-    title: 'Activist Defense AI',
+    title: 'Starboard AI',
     tag: 'Conversational AI',
     description: 'AI-powered research assistant for shareholder activism defense. Features real-time document analysis, strategic recommendation engine, and executive briefing generation with retrieval-augmented generation.',
     tech: ['React', 'FastAPI', 'Python', 'Claude API', 'PostgreSQL', 'Cloud Run'],
