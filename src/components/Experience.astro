@@ -1,0 +1,84 @@
+---
+const experiences = [
+  {
+    role: 'Consultant',
+    company: 'Top-3 Management Consulting Firm',
+    date: 'Aug 2024 – Present',
+    location: 'Houston, TX',
+    bullets: [
+      'Led global supply chain transformation across 20+ countries, reducing cycle times by 20%',
+      'Built and deployed production AI tools (Org Designer, PMI Compass) using Next.js, Prisma, PostgreSQL on enterprise GCP',
+      'Launched AI-powered knowledge integrations improving team productivity by 2-3 hours/week',
+      'Led multi-platform AI strategy evaluation for 35,000+ enterprise users',
+    ],
+  },
+  {
+    role: 'Summer Consultant',
+    company: 'Top-3 Management Consulting Firm',
+    date: 'Jun – Aug 2023',
+    location: '',
+    bullets: [
+      'Developed market-entry strategy validating a $700M revenue opportunity in carbon credits',
+    ],
+  },
+  {
+    role: 'Manager, Operations & Capital Programs',
+    company: 'Fortune 500 Energy Company',
+    date: 'Feb 2019 – Jul 2022',
+    location: 'India',
+    bullets: [
+      'Led $200M capital program under National Hydrogen Mission with 100% budget adherence',
+      'Built predictive maintenance ML system (Python, XGBoost) delivering $1M cost savings',
+      'Drove Lean Six Sigma initiatives reducing carbon emissions by 8% (Top 10 Employee award)',
+    ],
+  },
+  {
+    role: 'Operations Engineer',
+    company: 'Fortune 500 Energy Company',
+    date: 'May 2015 – Jan 2019',
+    location: 'India',
+    bullets: [
+      'Managed operations across five production plants ($500M/yr revenue), 99%+ reliability',
+      'Led continuous improvement initiatives improving manufacturing efficiency by 10%',
+    ],
+  },
+];
+---
+
+<section id="experience" class="py-20 lg:py-28">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
+    <div class="section-divider mb-16"></div>
+
+    <p class="reveal font-mono text-accent text-sm tracking-widest uppercase mb-2">EXPERIENCE</p>
+    <h2 class="reveal font-display text-3xl lg:text-4xl font-bold text-ink mb-12">
+      Where I've Worked
+    </h2>
+
+    <div class="relative">
+      <!-- Vertical timeline line -->
+      <div class="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-accent/30 via-accent/20 to-transparent"></div>
+
+      {experiences.map((exp, i) => (
+        <div class:list={['reveal relative pl-10', i < experiences.length - 1 ? 'pb-12' : 'pb-0']}>
+          <!-- Blue dot -->
+          <div class="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-accent border-2 border-canvas timeline-dot"></div>
+
+          <h3 class="font-display text-xl font-semibold text-ink">{exp.role}</h3>
+          <p class="text-muted font-medium">
+            {exp.company}{exp.location ? ` | ${exp.location}` : ''}
+          </p>
+          <p class="font-mono text-sm text-muted mt-1">{exp.date}</p>
+
+          <ul class="mt-3 space-y-2">
+            {exp.bullets.map((bullet) => (
+              <li class="text-muted leading-relaxed flex items-start gap-2">
+                <span class="mt-2 block h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60"></span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

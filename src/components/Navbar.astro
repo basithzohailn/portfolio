@@ -1,0 +1,154 @@
+---
+const navLinks = [
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Tech', href: '#tech-stack' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header
+  id="main-nav"
+  class="fixed top-0 w-full z-50 transition-all duration-300 bg-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-white/20"
+  style="--webkit-backdrop-filter: blur(20px) saturate(180%);"
+>
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 flex justify-between items-center py-5">
+    <!-- Logo -->
+    <a href="#hero" class="font-display font-bold text-xl text-ink hover:text-accent transition-colors">BN<span class="text-accent">.</span></a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-nav-link
+          class="text-muted hover:text-accent transition-colors font-medium text-sm link-underline"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="hamburger-line block w-6 h-0.5 bg-ink transition-all duration-300 origin-center"></span>
+      <span class="hamburger-line block w-6 h-0.5 bg-ink transition-all duration-300 origin-center"></span>
+      <span class="hamburger-line block w-6 h-0.5 bg-ink transition-all duration-300 origin-center"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav
+    id="mobile-menu"
+    class="md:hidden hidden bg-white/70 backdrop-blur-xl backdrop-saturate-150 border-b border-white/20"
+    aria-label="Mobile navigation"
+  >
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-nav-link
+          class="text-muted hover:text-accent transition-colors font-medium text-sm py-1"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script>
+  const initNavbar = () => {
+    const header = document.getElementById('main-nav');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+    const lines = menuBtn?.querySelectorAll('.hamburger-line');
+
+    if (!header || !menuBtn || !mobileMenu) return;
+
+    let isOpen = false;
+
+    // Scroll — intensify glass effect
+    const updateHeaderBg = () => {
+      if (window.scrollY > 80) {
+        header.classList.add('bg-white/70', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
+        header.classList.remove('bg-white/60');
+      } else {
+        header.classList.remove('bg-white/70', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
+        header.classList.add('bg-white/60');
+      }
+    };
+
+    window.addEventListener('scroll', updateHeaderBg, { passive: true });
+    updateHeaderBg();
+
+    // Mobile toggle
+    const toggleMenu = () => {
+      isOpen = !isOpen;
+      mobileMenu.classList.toggle('hidden', !isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+
+      if (lines && lines.length === 3) {
+        if (isOpen) {
+          lines[0].style.transform = 'translateY(4px) rotate(45deg)';
+          lines[1].style.opacity = '0';
+          lines[2].style.transform = 'translateY(-4px) rotate(-45deg)';
+        } else {
+          lines[0].style.transform = '';
+          lines[1].style.opacity = '';
+          lines[2].style.transform = '';
+        }
+      }
+    };
+
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('[data-nav-link]').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (isOpen) toggleMenu();
+      });
+    });
+
+    // Active section highlighting
+    const sections = ['hero', 'about', 'experience', 'tech-stack', 'projects', 'contact'];
+    const sectionElements = sections
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    const highlightActive = () => {
+      const scrollY = window.scrollY + 120;
+
+      let current = '';
+      for (const section of sectionElements) {
+        if (section.offsetTop <= scrollY) {
+          current = section.id;
+        }
+      }
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === `#${current}`) {
+          link.classList.remove('text-muted');
+          link.classList.add('text-accent');
+        } else {
+          link.classList.remove('text-accent');
+          link.classList.add('text-muted');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', highlightActive, { passive: true });
+    highlightActive();
+  };
+
+  document.addEventListener('DOMContentLoaded', initNavbar);
+</script>

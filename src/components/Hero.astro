@@ -1,0 +1,156 @@
+---
+import AnimatedHeadshot from './AnimatedHeadshot';
+const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engineer"];
+---
+
+<section id="hero" class="min-h-dvh flex items-center pt-20 relative overflow-hidden">
+  <!-- Mobile orb (visible on small screens) -->
+  <div
+    class="hero-orb-mobile absolute top-20 right-0 translate-x-1/3 lg:hidden"
+    aria-hidden="true"
+  ></div>
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 w-full relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+      <!-- Left column: text (60%) -->
+      <div class="lg:col-span-3">
+        <p class="font-mono text-accent text-sm tracking-widest uppercase reveal">
+          Hello, I'm
+        </p>
+
+        <h1 class="font-display text-5xl lg:text-7xl font-bold text-ink leading-[1.1] mt-3 reveal">
+          Basith<br />Nijamudeen
+        </h1>
+
+        <div class="mt-5 reveal">
+          <p class="font-display text-accent text-2xl lg:text-3xl font-semibold h-10 lg:h-12">
+            <span id="typewriter-text"></span><span class="typewriter-cursor" aria-hidden="true"></span>
+            <span class="sr-only">{roles.join(', ')}</span>
+          </p>
+          <div class="w-16 h-1 bg-gradient-to-r from-accent to-accent-sky rounded-full mt-3"></div>
+        </div>
+
+        <p class="text-muted text-lg leading-relaxed max-w-lg mt-6 reveal">
+          I build production AI tools that turn complex business problems into
+          elegant software solutions.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4 reveal">
+          <a
+            href="#projects"
+            class="group inline-flex items-center gap-2 bg-accent text-white px-7 py-3.5 rounded-xl font-medium hover:bg-accent-hover transition-all press-scale shadow-lg shadow-accent/20"
+          >
+            View Projects
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 border-2 border-accent text-accent px-7 py-3.5 rounded-xl font-medium hover:bg-accent hover:text-white transition-all press-scale"
+          >
+            Get in Touch
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column: headshot -->
+      <div class="hidden lg:flex lg:col-span-2 justify-center items-center relative">
+        <!-- Orb background -->
+        <div
+          class="hero-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          aria-hidden="true"
+        ></div>
+
+        <AnimatedHeadshot client:load />
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating geometric dots -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div class="absolute top-1/4 left-[10%] w-2 h-2 rounded-full bg-accent/20 animate-pulse"></div>
+    <div class="absolute top-1/3 right-[15%] w-1.5 h-1.5 rounded-full bg-accent-sky/20 animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-1/4 left-[20%] w-1 h-1 rounded-full bg-accent/15 animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute top-2/3 right-[25%] w-2.5 h-2.5 rounded-full bg-accent/10 animate-pulse" style="animation-delay: 0.5s;"></div>
+    <div class="absolute bottom-1/3 left-[40%] w-1.5 h-1.5 rounded-full bg-accent-sky/15 animate-pulse" style="animation-delay: 1.5s;"></div>
+  </div>
+</section>
+
+<script>
+  class Typewriter {
+    private element: HTMLElement;
+    private phrases: string[];
+    private typeSpeed: number;
+    private deleteSpeed: number;
+    private pauseDuration: number;
+    private phraseIndex: number;
+    private charIndex: number;
+    private isDeleting: boolean;
+
+    constructor(
+      element: HTMLElement,
+      phrases: string[],
+      typeSpeed = 70,
+      deleteSpeed = 35,
+      pauseDuration = 2200
+    ) {
+      this.element = element;
+      this.phrases = phrases;
+      this.typeSpeed = typeSpeed;
+      this.deleteSpeed = deleteSpeed;
+      this.pauseDuration = pauseDuration;
+      this.phraseIndex = 0;
+      this.charIndex = 0;
+      this.isDeleting = false;
+    }
+
+    start() {
+      this.tick();
+    }
+
+    private tick() {
+      const currentPhrase = this.phrases[this.phraseIndex];
+
+      if (this.isDeleting) {
+        this.charIndex--;
+      } else {
+        this.charIndex++;
+      }
+
+      this.element.textContent = currentPhrase.substring(0, this.charIndex);
+
+      let delay = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+
+      if (!this.isDeleting && this.charIndex === currentPhrase.length) {
+        delay = this.pauseDuration;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.charIndex === 0) {
+        this.isDeleting = false;
+        this.phraseIndex = (this.phraseIndex + 1) % this.phrases.length;
+        delay = 400;
+      }
+
+      setTimeout(() => this.tick(), delay);
+    }
+  }
+
+  const initTypewriter = () => {
+    const el = document.getElementById('typewriter-text');
+    if (!el) return;
+
+    const phrases = ['Management Consultant', 'AI Product Builder', 'Full Stack Engineer'];
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      el.textContent = phrases[0];
+      return;
+    }
+
+    const typewriter = new Typewriter(el, phrases, 70, 35, 2200);
+    typewriter.start();
+  };
+
+  document.addEventListener('DOMContentLoaded', initTypewriter);
+</script>

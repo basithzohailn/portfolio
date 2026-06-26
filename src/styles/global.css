@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #fafbfd;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+  --color-accent: #2563eb;
+  --color-accent-light: #eff6ff;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-sky: #0ea5e9;
+  --color-border: #e2e8f0;
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Source Sans 3', -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background-color: var(--color-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* Focus-visible ring — accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Touch-action for mobile performance */
+a, button, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* Cursor pointer on all interactive elements */
+a, button, [role="button"], input[type="submit"] {
+  cursor: pointer;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: 400ms; }
+.reveal-stagger > .reveal:nth-child(7) { transition-delay: 480ms; }
+.reveal-stagger > .reveal:nth-child(8) { transition-delay: 560ms; }
+
+/* Hero gradient orb */
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(30px, -20px) scale(1.05); opacity: 0.7; }
+  66% { transform: translate(-20px, 15px) scale(0.95); opacity: 0.55; }
+}
+.hero-orb {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 40%, #2563eb 0%, #0ea5e9 30%, #a5b4fc 60%, transparent 100%);
+  filter: blur(80px);
+  animation: orb-drift 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* Hero orb — mobile variant */
+.hero-orb-mobile {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #2563eb 0%, #0ea5e9 40%, transparent 100%);
+  filter: blur(60px);
+  animation: orb-drift 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* Typewriter cursor */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.15em;
+  background-color: var(--color-accent);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: blink-cursor 0.75s step-end infinite;
+  border-radius: 1px;
+}
+
+/* Animated border glow */
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotate-glow {
+  to { --glow-angle: 360deg; }
+}
+.glow-card {
+  position: relative;
+  border-radius: 1rem;
+  background: var(--color-surface);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--glow-angle), transparent 0deg, #2563eb 60deg, #0ea5e9 120deg, transparent 180deg, transparent 360deg);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: rotate-glow 3s linear infinite;
+  z-index: 0;
+}
+.glow-card:hover::before {
+  opacity: 1;
+}
+.glow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.12);
+}
+.glow-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgb(37 99 235 / 0.12);
+}
+.glow-card:focus-within::before {
+  opacity: 1;
+}
+.glow-card > .card-inner {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border-radius: calc(1rem - 2px);
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Animated headshot ring */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.headshot-ring {
+  position: relative;
+  display: inline-block;
+}
+.headshot-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #2563eb, #0ea5e9, #2563eb);
+  animation: spin-slow 8s linear infinite;
+  z-index: -1;
+}
+
+/* Card hover lift utility */
+.card-hover-lift {
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+}
+.card-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgb(37 99 235 / 0.15);
+}
+
+/* Animated counter number */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Timeline pulse dot */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(37 99 235 / 0.4); }
+  50% { box-shadow: 0 0 0 8px rgb(37 99 235 / 0); }
+}
+.timeline-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Scale feedback on press */
+.press-scale:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+
+/* Smooth link underline animation */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width 0.3s var(--ease-out-expo);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Section divider gradient fade */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 50;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgb(37 99 235 / 0.3);
+}
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgb(37 99 235 / 0.4);
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-sky));
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 100;
+  transition: none;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-orb { animation: none; }
+  .hero-orb-mobile { animation: none; }
+  .glow-card::before { animation: none; }
+  .typewriter-cursor { animation: none; opacity: 1; }
+  .headshot-ring::before { animation: none; }
+  .timeline-dot { animation: none; }
+  .card-hover-lift:hover { transform: none; }
+  .back-to-top { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* No-JS fallback */
+noscript + .reveal,
+noscript ~ * .reveal {
+  opacity: 1;
+  transform: none;
+}

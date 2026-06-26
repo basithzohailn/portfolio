@@ -1,0 +1,152 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Basith Nijamudeen — Consultant. Builder. Engineer.",
+  description = "Management consultant and AI product builder with 8+ years experience.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#2563eb" />
+  </head>
+
+  <body class="bg-canvas text-ink antialiased">
+    <!-- Skip to content -->
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none"
+    >
+      Skip to content
+    </a>
+
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+    <slot />
+
+    <!-- No-JS fallback: make .reveal elements visible -->
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+
+    <!-- Scroll reveal -->
+    <script>
+      const initScrollReveal = () => {
+        const reveals = document.querySelectorAll('.reveal');
+        if (!reveals.length) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          reveals.forEach((el) => el.classList.add('revealed'));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        reveals.forEach((el) => observer.observe(el));
+      };
+
+      document.addEventListener('DOMContentLoaded', initScrollReveal);
+    </script>
+
+    <!-- Scroll progress -->
+    <script>
+      const initScrollProgress = () => {
+        const bar = document.getElementById('scroll-progress');
+        if (!bar) return;
+
+        const update = () => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+          bar.style.transform = `scaleX(${progress})`;
+        };
+
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+      };
+
+      document.addEventListener('DOMContentLoaded', initScrollProgress);
+    </script>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
+    <!-- Back to top behavior -->
+    <script>
+      const initBackToTop = () => {
+        const btn = document.getElementById('back-to-top');
+        if (!btn) return;
+
+        const toggle = () => {
+          if (window.scrollY > 400) {
+            btn.classList.add('visible');
+          } else {
+            btn.classList.remove('visible');
+          }
+        };
+
+        window.addEventListener('scroll', toggle, { passive: true });
+        btn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        toggle();
+      };
+
+      document.addEventListener('DOMContentLoaded', initBackToTop);
+    </script>
+  </body>
+</html>

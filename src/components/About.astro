@@ -1,0 +1,36 @@
+---
+import AnimatedStats from './AnimatedStats';
+---
+
+<section id="about" class="py-20 lg:py-28 bg-surface">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
+    <div class="section-divider mb-16"></div>
+
+    <p class="reveal font-mono text-accent text-sm tracking-widest uppercase mb-2">ABOUT</p>
+    <h2 class="reveal font-display text-3xl lg:text-4xl font-bold text-ink mb-8">
+      Bridging Strategy &amp; Engineering
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <div class="reveal text-muted text-lg leading-relaxed">
+          <p class="mb-6">
+            I sit at the intersection of management consulting and software engineering.
+            With a B.Tech from IIT Madras and an MBA from Yale, I've spent 8+ years solving
+            complex operational problems — first on the ground at a Fortune 500 energy company
+            managing $200M+ capital programs, then as a consultant advising executives on
+            strategy and transformation.
+          </p>
+          <p>
+            Along the way, I discovered that the most impactful consulting deliverables are
+            the ones that keep working after the team leaves. That insight led me to build
+            production AI tools: from organizational design platforms to post-merger integration
+            assistants to predictive maintenance systems.
+          </p>
+        </div>
+      </div>
+
+      <AnimatedStats client:load />
+    </div>
+  </div>
+</section>
