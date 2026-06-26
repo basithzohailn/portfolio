@@ -83,99 +83,54 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
   </div>
 </section>
 
-<script>
-  class Typewriter {
-    private element: HTMLElement;
-    private phrases: string[];
-    private typeSpeed: number;
-    private deleteSpeed: number;
-    private pauseDuration: number;
-    private phraseIndex: number;
-    private charIndex: number;
-    private isDeleting: boolean;
+<script is:inline>
+  (function() {
+    if (window.__typewriterInit) return;
 
-    constructor(
-      element: HTMLElement,
-      phrases: string[],
-      typeSpeed = 70,
-      deleteSpeed = 35,
-      pauseDuration = 2200
-    ) {
-      this.element = element;
-      this.phrases = phrases;
-      this.typeSpeed = typeSpeed;
-      this.deleteSpeed = deleteSpeed;
-      this.pauseDuration = pauseDuration;
-      this.phraseIndex = 0;
-      this.charIndex = 0;
-      this.isDeleting = false;
-    }
+    function startTypewriter() {
+      var el = document.getElementById('typewriter-text');
+      if (!el || window.__typewriterInit) return;
+      window.__typewriterInit = true;
 
-    start() {
-      this.tick();
-    }
+      var phrases = ['Management Consultant', 'AI Product Builder', 'Full Stack Engineer', 'Chemical Engineer', 'Oil & Gas Strategist'];
 
-    private tick() {
-      const currentPhrase = this.phrases[this.phraseIndex];
-
-      if (this.isDeleting) {
-        this.charIndex--;
-      } else {
-        this.charIndex++;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = phrases[0];
+        return;
       }
 
-      this.element.textContent = currentPhrase.substring(0, this.charIndex);
+      var phraseIndex = 0, charIndex = 0, isDeleting = false;
 
-      let delay = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+      function tick() {
+        var current = phrases[phraseIndex];
+        if (isDeleting) { charIndex--; } else { charIndex++; }
+        el.textContent = current.substring(0, charIndex);
 
-      if (!this.isDeleting && this.charIndex === currentPhrase.length) {
-        delay = this.pauseDuration;
-        this.isDeleting = true;
-      } else if (this.isDeleting && this.charIndex === 0) {
-        this.isDeleting = false;
-        this.phraseIndex = (this.phraseIndex + 1) % this.phrases.length;
-        delay = 400;
+        var delay = isDeleting ? 35 : 70;
+
+        if (!isDeleting && charIndex === current.length) {
+          delay = 2200;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          delay = 400;
+        }
+
+        setTimeout(tick, delay);
       }
 
-      setTimeout(() => this.tick(), delay);
-    }
-  }
-
-  let initialized = false;
-
-  const initTypewriter = () => {
-    if (initialized) return;
-    const el = document.getElementById('typewriter-text');
-    if (!el) return;
-
-    initialized = true;
-
-    const phrases = ['Management Consultant', 'AI Product Builder', 'Full Stack Engineer', 'Chemical Engineer', 'Oil & Gas Strategist'];
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      el.textContent = phrases[0];
-      return;
+      tick();
     }
 
-    const typewriter = new Typewriter(el, phrases, 70, 35, 2200);
-    typewriter.start();
-  };
-
-  // Astro hoists scripts to <head> as modules — the DOM element may not
-  // exist yet when this runs. Retry until it appears.
-  const waitForElement = (attempts = 0) => {
-    if (document.getElementById('typewriter-text')) {
-      initTypewriter();
-    } else if (attempts < 50) {
-      requestAnimationFrame(() => waitForElement(attempts + 1));
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startTypewriter);
+    } else {
+      startTypewriter();
     }
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTypewriter);
-  } else {
-    waitForElement();
-  }
-  document.addEventListener('astro:page-load', initTypewriter);
+    document.addEventListener('astro:page-load', function() {
+      window.__typewriterInit = false;
+      startTypewriter();
+    });
+  })();
 </script>
