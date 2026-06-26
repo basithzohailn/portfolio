@@ -72,12 +72,12 @@ export default function ProjectCard({ project, index }: { project: Project; inde
             </div>
           </div>
         </div>
-        {/* Project image with zoom on hover */}
-        <div className="aspect-[16/10] bg-gradient-to-br from-accent-light via-accent/5 to-accent-sky/5 relative overflow-hidden">
+        {/* Project image — cropped to top half */}
+        <div className="aspect-[16/5] bg-gradient-to-br from-accent-light via-accent/5 to-accent-sky/5 relative overflow-hidden">
           <img
             src={project.image}
             alt={`${project.title} preview`}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            className="w-full h-auto object-cover object-top transition-transform duration-500 hover:scale-105"
             loading="lazy"
             decoding="async"
           />
