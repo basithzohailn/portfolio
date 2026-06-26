@@ -60,12 +60,12 @@ const experiences = [
 
     <div class="relative">
       <!-- Vertical timeline line -->
-      <div class="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-accent/30 via-accent/20 to-transparent"></div>
+      <div class="absolute left-[11px] top-0 bottom-0 w-px bg-gradient-to-b from-accent/30 via-accent/20 to-transparent"></div>
 
       {experiences.map((exp, i) => (
         <div class:list={['reveal relative pl-10', i < experiences.length - 1 ? 'pb-12' : 'pb-0']}>
-          <!-- Blue dot -->
-          <div class="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-accent border-2 border-canvas timeline-dot"></div>
+          <!-- Blue dot — centered on line (11px) and aligned with logo vertically -->
+          <div class="absolute left-[3px] top-[32px] sm:top-[34px] w-4 h-4 rounded-full bg-accent border-2 border-canvas timeline-dot"></div>
 
           <div class="glass-card spotlight-card rounded-xl p-5">
             <div class="flex items-start gap-3 sm:gap-4">
