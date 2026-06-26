@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 
 const credentials = [
-  { value: 'Yale SOM', label: "MBA, Dean's Scholar", logo: '/portfolio/images/logos/yale.png' },
+  { value: 'Yale School of Management', label: "MBA, Dean's Scholar", logo: '/portfolio/images/logos/yale.png' },
   { value: 'IIT Madras', label: 'B.Tech, Top 10%', logo: '/portfolio/images/logos/iitm.png' },
-  { value: 'BCG', label: 'Consultant', logo: '/portfolio/images/logos/bcg.png' },
-  { value: 'BPCL', label: 'Manager, Operations', logo: '/portfolio/images/logos/bpcl.png' },
+  { value: 'Boston Consulting Group', label: 'Consultant', logo: '/portfolio/images/logos/bcg.png' },
+  { value: 'Bharat Petroleum', label: 'Manager, Operations', logo: '/portfolio/images/logos/bpcl.png' },
   { value: '8+ Years', label: 'Industry Experience', logo: null },
   { value: 'PMP', label: 'Certified', logo: '/portfolio/images/logos/pmp.png' },
 ];
@@ -49,7 +49,7 @@ export default function AnimatedStats() {
           {cred.logo ? (
             <img
               src={cred.logo}
-              alt=""
+              alt={cred.value}
               className="w-8 h-8 object-contain flex-shrink-0"
               loading="lazy"
             />

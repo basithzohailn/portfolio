@@ -37,7 +37,7 @@ function Pill({ name }: { name: string }) {
       {logoMap[name] && (
         <img
           src={logoMap[name]}
-          alt=""
+          alt={name}
           className="w-5 h-5 flex-shrink-0"
           loading="lazy"
         />

@@ -81,7 +81,7 @@ export default function TechPills() {
                 {logoMap[item] && (
                   <img
                     src={logoMap[item]}
-                    alt=""
+                    alt={item}
                     className="w-4 h-4 flex-shrink-0"
                     loading="lazy"
                   />

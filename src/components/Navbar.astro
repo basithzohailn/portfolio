@@ -2,6 +2,7 @@
 const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Education', href: '#education' },
   { label: 'Tech', href: '#tech-stack' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -123,7 +124,7 @@ const navLinks = [
     });
 
     // Active section highlighting + pill indicator
-    const sections = ['hero', 'about', 'experience', 'tech-stack', 'projects', 'contact'];
+    const sections = ['hero', 'about', 'experience', 'education', 'tech-stack', 'projects', 'contact'];
     const sectionElements = sections
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
