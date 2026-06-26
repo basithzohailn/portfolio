@@ -11,7 +11,7 @@ const navLinks = [
 
 <header
   id="main-nav"
-  class="fixed top-0 w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-xl backdrop-saturate-150 border-b border-white/20"
+  class="fixed top-0 w-full z-50 transition-all duration-300 bg-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-white/20 before:content-[''] before:absolute before:inset-x-0 before:-top-12 before:h-12 before:bg-white before:backdrop-blur-xl"
   style="-webkit-backdrop-filter: blur(20px) saturate(180%); padding-top: env(safe-area-inset-top, 0px);"
 >
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 flex justify-between items-center py-4 sm:py-5">
@@ -86,11 +86,11 @@ const navLinks = [
 
     const updateHeaderBg = () => {
       if (window.scrollY > 80) {
-        header.classList.add('bg-white/95', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
-        header.classList.remove('bg-white/90');
+        header.classList.add('bg-white/70', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
+        header.classList.remove('bg-white/60');
       } else {
-        header.classList.remove('bg-white/95', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
-        header.classList.add('bg-white/90');
+        header.classList.remove('bg-white/70', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
+        header.classList.add('bg-white/60');
       }
     };
 
