@@ -74,9 +74,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Scroll reveal -->
     <script>
+      let revealInit = false;
       const initScrollReveal = () => {
+        if (revealInit) return;
         const reveals = document.querySelectorAll('.reveal');
         if (!reveals.length) return;
+
+        revealInit = true;
 
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) {
@@ -104,13 +108,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       } else {
         initScrollReveal();
       }
+      document.addEventListener('astro:page-load', initScrollReveal);
     </script>
 
     <!-- Scroll progress -->
     <script>
+      let progressInit = false;
       const initScrollProgress = () => {
         const bar = document.getElementById('scroll-progress');
-        if (!bar) return;
+        if (!bar || progressInit) return;
+        progressInit = true;
 
         const update = () => {
           const scrollTop = window.scrollY;
@@ -128,6 +135,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       } else {
         initScrollProgress();
       }
+      document.addEventListener('astro:page-load', initScrollProgress);
     </script>
 
     <!-- Back to top -->
@@ -139,9 +147,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Back to top behavior -->
     <script>
+      let backTopInit = false;
       const initBackToTop = () => {
         const btn = document.getElementById('back-to-top');
-        if (!btn) return;
+        if (!btn || backTopInit) return;
+        backTopInit = true;
 
         const toggle = () => {
           if (window.scrollY > 400) {
@@ -163,6 +173,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       } else {
         initBackToTop();
       }
+      document.addEventListener('astro:page-load', initBackToTop);
     </script>
   </body>
 </html>

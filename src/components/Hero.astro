@@ -141,9 +141,14 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
     }
   }
 
+  let initialized = false;
+
   const initTypewriter = () => {
+    if (initialized) return;
     const el = document.getElementById('typewriter-text');
     if (!el) return;
+
+    initialized = true;
 
     const phrases = ['Management Consultant', 'AI Product Builder', 'Full Stack Engineer'];
 
@@ -157,9 +162,20 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
     typewriter.start();
   };
 
+  // Astro hoists scripts to <head> as modules — the DOM element may not
+  // exist yet when this runs. Retry until it appears.
+  const waitForElement = (attempts = 0) => {
+    if (document.getElementById('typewriter-text')) {
+      initTypewriter();
+    } else if (attempts < 50) {
+      requestAnimationFrame(() => waitForElement(attempts + 1));
+    }
+  };
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initTypewriter);
   } else {
-    initTypewriter();
+    waitForElement();
   }
+  document.addEventListener('astro:page-load', initTypewriter);
 </script>

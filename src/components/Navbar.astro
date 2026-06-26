@@ -68,7 +68,9 @@ const navLinks = [
 </header>
 
 <script>
+  let navInit = false;
   const initNavbar = () => {
+    if (navInit) return;
     const header = document.getElementById('main-nav');
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -77,6 +79,7 @@ const navLinks = [
     const pill = document.getElementById('nav-pill');
 
     if (!header || !menuBtn || !mobileMenu) return;
+    navInit = true;
 
     let isOpen = false;
 
@@ -179,4 +182,5 @@ const navLinks = [
   } else {
     requestAnimationFrame(initNavbar);
   }
+  document.addEventListener('astro:page-load', initNavbar);
 </script>

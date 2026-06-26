@@ -95,8 +95,14 @@ const experiences = [
 </section>
 
 <script>
+  let spotlightInit = false;
   const initSpotlightCards = () => {
-    document.querySelectorAll('#experience .spotlight-card').forEach((card) => {
+    if (spotlightInit) return;
+    const cards = document.querySelectorAll('#experience .spotlight-card');
+    if (!cards.length) return;
+    spotlightInit = true;
+
+    cards.forEach((card) => {
       card.addEventListener('mousemove', (e) => {
         const el = card as HTMLElement;
         const rect = el.getBoundingClientRect();
@@ -111,4 +117,5 @@ const experiences = [
   } else {
     initSpotlightCards();
   }
+  document.addEventListener('astro:page-load', initSpotlightCards);
 </script>
