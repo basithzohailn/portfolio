@@ -17,17 +17,20 @@ const navLinks = [
     <!-- Logo -->
     <a href="#hero" class="font-display font-bold text-xl text-ink hover:text-accent transition-colors">BN<span class="text-accent">.</span></a>
 
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          data-nav-link
-          class="text-muted hover:text-accent transition-colors font-medium text-sm link-underline"
-        >
-          {link.label}
-        </a>
-      ))}
+    <!-- Desktop nav with pill indicator -->
+    <nav class="hidden md:flex items-center relative" aria-label="Main navigation">
+      <div id="nav-pill" class="absolute h-8 rounded-full bg-accent/10 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0" style="top: 50%; transform: translateY(-50%);"></div>
+      <div class="flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-nav-link
+            class="relative z-10 text-muted hover:text-accent transition-colors font-medium text-sm px-4 py-1.5 rounded-full"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
     </nav>
 
     <!-- Mobile hamburger -->
@@ -71,12 +74,12 @@ const navLinks = [
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelectorAll('[data-nav-link]');
     const lines = menuBtn?.querySelectorAll('.hamburger-line');
+    const pill = document.getElementById('nav-pill');
 
     if (!header || !menuBtn || !mobileMenu) return;
 
     let isOpen = false;
 
-    // Scroll — intensify glass effect
     const updateHeaderBg = () => {
       if (window.scrollY > 80) {
         header.classList.add('bg-white/70', 'shadow-[0_1px_3px_rgba(0,0,0,0.05)]');
@@ -90,7 +93,6 @@ const navLinks = [
     window.addEventListener('scroll', updateHeaderBg, { passive: true });
     updateHeaderBg();
 
-    // Mobile toggle
     const toggleMenu = () => {
       isOpen = !isOpen;
       mobileMenu.classList.toggle('hidden', !isOpen);
@@ -111,18 +113,32 @@ const navLinks = [
 
     menuBtn.addEventListener('click', toggleMenu);
 
-    // Close mobile menu on link click
     mobileMenu.querySelectorAll('[data-nav-link]').forEach((link) => {
       link.addEventListener('click', () => {
         if (isOpen) toggleMenu();
       });
     });
 
-    // Active section highlighting
+    // Active section highlighting + pill indicator
     const sections = ['hero', 'about', 'experience', 'tech-stack', 'projects', 'contact'];
     const sectionElements = sections
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
+
+    const desktopLinks = header.querySelectorAll('nav:not(#mobile-menu) [data-nav-link]') as NodeListOf<HTMLElement>;
+
+    const movePill = (activeLink: HTMLElement | null) => {
+      if (!pill || !activeLink) {
+        if (pill) pill.style.opacity = '0';
+        return;
+      }
+      const nav = activeLink.closest('nav');
+      if (!nav) return;
+
+      pill.style.opacity = '1';
+      pill.style.left = `${activeLink.offsetLeft}px`;
+      pill.style.width = `${activeLink.offsetWidth}px`;
+    };
 
     const highlightActive = () => {
       const scrollY = window.scrollY + 120;
@@ -134,21 +150,33 @@ const navLinks = [
         }
       }
 
+      let activeDesktopLink: HTMLElement | null = null;
+
       navLinks.forEach((link) => {
         const href = link.getAttribute('href');
         if (href === `#${current}`) {
           link.classList.remove('text-muted');
           link.classList.add('text-accent');
+          if ((link as HTMLElement).closest('nav:not(#mobile-menu)')) {
+            activeDesktopLink = link as HTMLElement;
+          }
         } else {
           link.classList.remove('text-accent');
           link.classList.add('text-muted');
         }
       });
+
+      movePill(activeDesktopLink);
     };
 
     window.addEventListener('scroll', highlightActive, { passive: true });
+    window.addEventListener('resize', highlightActive, { passive: true });
     highlightActive();
   };
 
-  document.addEventListener('DOMContentLoaded', initNavbar);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    requestAnimationFrame(initNavbar);
+  }
 </script>

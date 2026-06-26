@@ -37,6 +37,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
 
@@ -95,7 +99,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         reveals.forEach((el) => observer.observe(el));
       };
 
-      document.addEventListener('DOMContentLoaded', initScrollReveal);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollReveal);
+      } else {
+        initScrollReveal();
+      }
     </script>
 
     <!-- Scroll progress -->
@@ -115,7 +123,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         update();
       };
 
-      document.addEventListener('DOMContentLoaded', initScrollProgress);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollProgress);
+      } else {
+        initScrollProgress();
+      }
     </script>
 
     <!-- Back to top -->
@@ -146,7 +158,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         toggle();
       };
 
-      document.addEventListener('DOMContentLoaded', initBackToTop);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBackToTop);
+      } else {
+        initBackToTop();
+      }
     </script>
   </body>
 </html>

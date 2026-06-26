@@ -1,16 +1,21 @@
 ---
-import TechPills from './TechPills';
+import TechMarquee from './TechMarquee';
 ---
 
-<section id="tech-stack" class="py-20 lg:py-28 bg-surface">
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
+<section id="tech-stack" class="py-20 lg:py-28 bg-canvas relative overflow-hidden">
+  <!-- Subtle radial gradient background -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(37,99,235,0.05),transparent)] pointer-events-none" aria-hidden="true"></div>
+
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 relative z-10">
     <div class="section-divider mb-16"></div>
 
-    <p class="reveal font-mono text-accent text-sm tracking-widest uppercase mb-2">TECH STACK</p>
-    <h2 class="reveal font-display text-3xl lg:text-4xl font-bold text-ink mb-12">
-      Tools &amp; Technologies
-    </h2>
+    <div class="text-center mb-12">
+      <p class="reveal font-mono text-accent text-sm tracking-widest uppercase mb-2">TECH STACK</p>
+      <h2 class="reveal font-display text-3xl lg:text-4xl font-bold text-ink">
+        Tools &amp; <span class="text-gradient">Technologies</span>
+      </h2>
+    </div>
 
-    <TechPills client:load />
+    <TechMarquee client:load />
   </div>
 </section>

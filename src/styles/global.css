@@ -43,6 +43,127 @@ body::after {
   opacity: 0.4;
 }
 
+/* Grid background pattern */
+.grid-bg {
+  background-size: 4rem 4rem;
+  background-image:
+    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 50%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 50%, transparent 100%);
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #2563eb 50%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Marquee infinite scroll */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+.marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
+.marquee-track:hover .marquee-left,
+.marquee-track:hover .marquee-right {
+  animation-play-state: paused;
+}
+
+/* Spotlight card effect */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 99, 235, 0.06), transparent 40%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* Blur reveal animation for headings */
+@keyframes blur-reveal {
+  0% { opacity: 0; filter: blur(12px); transform: translateY(8px); }
+  100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+.blur-reveal {
+  opacity: 0;
+  animation: blur-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.blur-reveal.revealed {
+  animation: blur-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shimmer on gradient text */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.text-gradient-shimmer {
+  background: linear-gradient(
+    90deg,
+    #0f172a 0%,
+    #2563eb 25%,
+    #0ea5e9 50%,
+    #2563eb 75%,
+    #0f172a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Availability badge pulse */
+@keyframes available-ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.available-dot {
+  position: relative;
+}
+.available-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: available-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+}
+
 /* Focus-visible ring — accessibility */
 :focus-visible {
   outline: 2px solid var(--color-accent);

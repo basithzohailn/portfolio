@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 const credentials = [
   { value: 'Yale SOM', label: "MBA, Dean's Scholar", logo: '/portfolio/images/logos/yale.png' },
   { value: 'IIT Madras', label: 'B.Tech, Top 10%', logo: '/portfolio/images/logos/iitm.png' },
+  { value: 'BCG', label: 'Consultant', logo: '/portfolio/images/logos/bcg.png' },
+  { value: 'BPCL', label: 'Manager, Operations', logo: '/portfolio/images/logos/bpcl.png' },
   { value: '8+ Years', label: 'Industry Experience', logo: null },
   { value: 'PMP', label: 'Certified', logo: '/portfolio/images/logos/pmp.png' },
 ];
@@ -42,7 +44,7 @@ export default function AnimatedStats() {
             boxShadow: '0 8px 20px -4px rgba(37, 99, 235, 0.1)',
             transition: { duration: 0.2 },
           }}
-          className="flex items-center gap-3 px-5 py-4 bg-surface border border-border rounded-xl cursor-default w-full"
+          className="flex items-center gap-3 px-5 py-4 bg-white/70 backdrop-blur-sm border border-border/50 rounded-xl cursor-default w-full shadow-sm"
         >
           {cred.logo ? (
             <img
