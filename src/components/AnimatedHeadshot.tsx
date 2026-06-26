@@ -16,28 +16,22 @@ export default function AnimatedHeadshot() {
         <div className="w-full h-full rounded-full bg-canvas" />
       </motion.div>
 
-      {/* Floating headshot */}
+      {/* Headshot */}
       <motion.div
         className="relative z-10 w-72 h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-4 border-surface shadow-2xl"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <motion.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-full h-full"
-        >
-          <img
-            src="/portfolio/images/headshot.png"
-            alt="Basith Nijamudeen headshot"
-            width={320}
-            height={320}
-            className="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
-        </motion.div>
+        <img
+          src="/portfolio/images/headshot.png"
+          alt="Basith Nijamudeen headshot"
+          width={320}
+          height={320}
+          className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+        />
       </motion.div>
     </div>
   );

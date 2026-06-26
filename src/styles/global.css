@@ -348,6 +348,68 @@ a, button, [role="button"], input[type="submit"] {
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
+/* Hero CTA — primary with shimmer sweep */
+@keyframes btn-shimmer {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  transition: all 0.3s var(--ease-out-expo);
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+.btn-primary:hover::after {
+  animation: btn-shimmer 0.8s ease forwards;
+}
+.btn-primary:hover {
+  box-shadow: 0 8px 25px -4px rgb(37 99 235 / 0.35), 0 0 0 1px rgb(37 99 235 / 0.1);
+  transform: translateY(-2px);
+}
+
+/* Hero CTA — secondary with animated gradient border */
+.btn-secondary {
+  position: relative;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s var(--ease-out-expo);
+}
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-sky), var(--color-accent));
+  background-size: 200% 200%;
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, background-position 0.5s ease;
+}
+.btn-secondary:hover::before {
+  opacity: 1;
+  background-position: 100% 100%;
+}
+.btn-secondary:hover {
+  color: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -4px rgb(37 99 235 / 0.15);
+}
+
 /* Scale feedback on press */
 .press-scale:active {
   transform: scale(0.97);
