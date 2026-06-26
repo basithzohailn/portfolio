@@ -24,7 +24,7 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
 
         <div class="mt-5 reveal">
           <p class="font-display text-accent text-2xl lg:text-3xl font-semibold h-10 lg:h-12">
-            <span id="typewriter-text"></span><span class="typewriter-cursor" aria-hidden="true"></span>
+            <span id="typewriter-text">Management Consultant</span><span class="typewriter-cursor" aria-hidden="true"></span>
             <span class="sr-only">{roles.join(', ')}</span>
           </p>
           <div class="w-16 h-1 bg-gradient-to-r from-accent to-accent-sky rounded-full mt-3"></div>
@@ -85,52 +85,50 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
 
 <script is:inline>
   (function() {
-    if (window.__typewriterInit) return;
+    var phrases = ['Management Consultant', 'AI Product Builder', 'Full Stack Engineer', 'Chemical Engineer', 'Oil & Gas Strategist'];
 
     function startTypewriter() {
+      if (window.__twRunning) return;
       var el = document.getElementById('typewriter-text');
-      if (!el || window.__typewriterInit) return;
-      window.__typewriterInit = true;
-
-      var phrases = ['Management Consultant', 'AI Product Builder', 'Full Stack Engineer', 'Chemical Engineer', 'Oil & Gas Strategist'];
+      if (!el) return;
+      window.__twRunning = true;
 
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         el.textContent = phrases[0];
         return;
       }
 
-      var phraseIndex = 0, charIndex = 0, isDeleting = false;
+      var pi = 0, ci = phrases[0].length, del = true;
 
       function tick() {
-        var current = phrases[phraseIndex];
-        if (isDeleting) { charIndex--; } else { charIndex++; }
-        el.textContent = current.substring(0, charIndex);
+        var current = phrases[pi];
+        if (del) { ci--; } else { ci++; }
+        el.textContent = current.substring(0, ci);
 
-        var delay = isDeleting ? 35 : 70;
+        var d = del ? 35 : 70;
 
-        if (!isDeleting && charIndex === current.length) {
-          delay = 2200;
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          delay = 400;
+        if (!del && ci === current.length) {
+          d = 2200; del = true;
+        } else if (del && ci === 0) {
+          del = false;
+          pi = (pi + 1) % phrases.length;
+          d = 400;
         }
 
-        setTimeout(tick, delay);
+        setTimeout(tick, d);
       }
 
-      tick();
+      setTimeout(tick, 2200);
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', startTypewriter);
-    } else {
+    // Try every strategy to ensure this runs
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
       startTypewriter();
     }
-    document.addEventListener('astro:page-load', function() {
-      window.__typewriterInit = false;
-      startTypewriter();
-    });
+    document.addEventListener('DOMContentLoaded', startTypewriter);
+    window.addEventListener('load', startTypewriter);
+    setTimeout(startTypewriter, 100);
+    setTimeout(startTypewriter, 500);
+    setTimeout(startTypewriter, 2000);
   })();
 </script>
