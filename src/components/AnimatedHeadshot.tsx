@@ -3,9 +3,8 @@ import { motion } from 'framer-motion';
 export default function AnimatedHeadshot() {
   return (
     <div className="relative flex justify-center items-center">
-      {/* Animated gradient ring */}
       <motion.div
-        className="absolute w-[310px] h-[310px] xl:w-[340px] xl:h-[340px] rounded-full"
+        className="absolute w-[210px] h-[210px] sm:w-[260px] sm:h-[260px] lg:w-[310px] lg:h-[310px] xl:w-[340px] xl:h-[340px] rounded-full"
         style={{
           background: 'conic-gradient(from 0deg, #2563eb, #0ea5e9, #a5b4fc, #2563eb)',
           padding: '3px',
@@ -16,9 +15,8 @@ export default function AnimatedHeadshot() {
         <div className="w-full h-full rounded-full bg-canvas" />
       </motion.div>
 
-      {/* Headshot */}
       <motion.div
-        className="relative z-10 w-72 h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-4 border-surface shadow-2xl"
+        className="relative z-10 w-48 h-48 sm:w-60 sm:h-60 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-4 border-surface shadow-2xl"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}

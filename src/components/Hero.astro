@@ -11,34 +11,39 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
   ></div>
 
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 w-full relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+      <!-- Mobile headshot (above text on small screens) -->
+      <div class="flex lg:hidden justify-center items-center relative">
+        <AnimatedHeadshot client:load />
+      </div>
+
       <!-- Left column: text (60%) -->
-      <div class="lg:col-span-3">
+      <div class="lg:col-span-3 text-center lg:text-left">
         <p class="font-mono text-accent text-sm tracking-widest uppercase reveal">
           Hello, I'm
         </p>
 
-        <h1 class="font-display text-5xl lg:text-7xl font-bold leading-[1.1] mt-3 reveal text-gradient-shimmer">
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] mt-3 reveal text-gradient-shimmer">
           Basith<br />Nijamudeen
         </h1>
 
         <div class="mt-5 reveal">
-          <p class="font-display text-accent text-2xl lg:text-3xl font-semibold h-10 lg:h-12">
+          <p class="font-display text-accent text-xl sm:text-2xl lg:text-3xl font-semibold h-8 sm:h-10 lg:h-12">
             <span id="typewriter-text">Management Consultant</span><span class="typewriter-cursor" aria-hidden="true"></span>
             <span class="sr-only">{roles.join(', ')}</span>
           </p>
-          <div class="w-16 h-1 bg-gradient-to-r from-accent to-accent-sky rounded-full mt-3"></div>
+          <div class="w-16 h-1 bg-gradient-to-r from-accent to-accent-sky rounded-full mt-3 mx-auto lg:mx-0"></div>
         </div>
 
-        <p class="text-muted text-lg leading-relaxed max-w-lg mt-6 reveal">
+        <p class="text-muted text-base sm:text-lg leading-relaxed max-w-lg mt-6 reveal mx-auto lg:mx-0">
           I build production AI tools that turn complex business problems into
           elegant software solutions.
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-4 reveal">
+        <div class="mt-8 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 reveal justify-center lg:justify-start">
           <a
             href="#projects"
-            class="group inline-flex items-center gap-3 bg-ink text-white px-8 py-3.5 rounded-full font-medium shadow-xl shadow-ink/15 hover:shadow-ink/25 hover:bg-ink/90 transition-all press-scale"
+            class="group inline-flex items-center justify-center gap-3 bg-ink text-white w-full sm:w-auto px-8 py-3.5 rounded-full font-medium shadow-xl shadow-ink/15 hover:shadow-ink/25 hover:bg-ink/90 transition-all press-scale"
           >
             View Projects
             <span class="flex items-center justify-center w-7 h-7 rounded-full bg-white/15 group-hover:bg-white/25 transition-colors">
@@ -49,7 +54,7 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
           </a>
           <a
             href="#contact"
-            class="group inline-flex items-center gap-3 bg-surface text-ink px-8 py-3.5 rounded-full font-medium border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/10 transition-all press-scale"
+            class="group inline-flex items-center justify-center gap-3 bg-surface text-ink w-full sm:w-auto px-8 py-3.5 rounded-full font-medium border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/10 transition-all press-scale"
           >
             Get in Touch
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent transition-transform group-hover:translate-x-0.5">
@@ -60,14 +65,12 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
         </div>
       </div>
 
-      <!-- Right column: headshot -->
+      <!-- Desktop headshot -->
       <div class="hidden lg:flex lg:col-span-2 justify-center items-center relative">
-        <!-- Orb background -->
         <div
           class="hero-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           aria-hidden="true"
         ></div>
-
         <AnimatedHeadshot client:load />
       </div>
     </div>

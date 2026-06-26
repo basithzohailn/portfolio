@@ -44,7 +44,7 @@ export default function AnimatedStats() {
             boxShadow: '0 8px 20px -4px rgba(37, 99, 235, 0.1)',
             transition: { duration: 0.2 },
           }}
-          className="flex items-center gap-3 px-5 py-4 bg-white/70 backdrop-blur-sm border border-border/50 rounded-xl cursor-default w-full shadow-sm"
+          className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-3 sm:py-4 bg-white/70 backdrop-blur-sm border border-border/50 rounded-xl cursor-default w-full shadow-sm"
         >
           {cred.logo ? (
             <img
@@ -59,7 +59,7 @@ export default function AnimatedStats() {
             </span>
           )}
           <div className="min-w-0">
-            <p className="font-display text-sm font-semibold text-ink leading-tight">{cred.value}</p>
+            <p className="font-display text-xs sm:text-sm font-semibold text-ink leading-tight truncate">{cred.value}</p>
             <p className="text-xs text-muted leading-tight">{cred.label}</p>
           </div>
         </motion.div>
