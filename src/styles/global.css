@@ -71,10 +71,14 @@ body::after {
   100% { transform: translateX(0); }
 }
 .marquee-left {
-  animation: marquee-left 30s linear infinite;
+  animation: marquee-left 15s linear infinite;
 }
 .marquee-right {
-  animation: marquee-right 30s linear infinite;
+  animation: marquee-right 15s linear infinite;
+}
+@media (min-width: 768px) {
+  .marquee-left { animation-duration: 30s; }
+  .marquee-right { animation-duration: 30s; }
 }
 .marquee-track:hover .marquee-left,
 .marquee-track:hover .marquee-right {

@@ -32,7 +32,7 @@ function Pill({ name }: { name: string }) {
         boxShadow: '0 4px 16px rgba(37, 99, 235, 0.2)',
         transition: { duration: 0.2 },
       }}
-      className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/80 backdrop-blur-sm border border-[#e2e8f0]/50 rounded-xl font-mono text-sm text-ink cursor-default whitespace-nowrap flex-shrink-0"
+      className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-5 py-2 sm:py-2.5 bg-white/80 backdrop-blur-sm border border-[#e2e8f0]/50 rounded-xl font-mono text-xs sm:text-sm text-ink cursor-default whitespace-nowrap flex-shrink-0"
     >
       {logoMap[name] && (
         <img
@@ -52,10 +52,9 @@ function MarqueeRow({ items, direction }: { items: string[]; direction: 'left' |
 
   return (
     <div className="marquee-track overflow-hidden">
-      <div className={`flex gap-4 ${animClass}`}>
-        {/* Render content 3x for seamless loop */}
+      <div className={`flex gap-2.5 sm:gap-4 ${animClass}`}>
         {[0, 1, 2].map((copy) => (
-          <div key={copy} className="flex gap-4 flex-shrink-0" aria-hidden={copy > 0 || undefined}>
+          <div key={copy} className="flex gap-2.5 sm:gap-4 flex-shrink-0" aria-hidden={copy > 0 || undefined}>
             {items.map((name) => (
               <Pill key={`${copy}-${name}`} name={name} />
             ))}
