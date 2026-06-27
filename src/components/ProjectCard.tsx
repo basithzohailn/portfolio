@@ -58,7 +58,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
     >
       <div className="card-inner">
         {/* Browser frame mockup */}
-        <div className="bg-canvas border-b border-border">
+        <div className="bg-white border-b border-border">
           <div className="flex items-center gap-2 px-4 py-2.5">
             <div className="flex gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-red-400/60"></div>
@@ -66,14 +66,14 @@ export default function ProjectCard({ project, index }: { project: Project; inde
               <div className="w-2.5 h-2.5 rounded-full bg-green-400/60"></div>
             </div>
             <div className="flex-1 mx-2">
-              <div className="bg-surface rounded-md px-3 py-1 text-xs text-muted/50 font-mono text-center truncate">
+              <div className="bg-gray-50 rounded-md px-3 py-1 text-xs text-muted/50 font-mono text-center truncate">
                 {project.title.toLowerCase().replace(/\s+/g, '')}.app
               </div>
             </div>
           </div>
         </div>
         {/* Project image — cropped to top half */}
-        <div className="aspect-[16/7.5] bg-gradient-to-br from-accent-light via-accent/5 to-accent-sky/5 relative overflow-hidden">
+        <div className="aspect-[16/7.5] bg-white relative overflow-hidden">
           <img
             src={project.image}
             alt={`${project.title} preview`}
@@ -81,7 +81,6 @@ export default function ProjectCard({ project, index }: { project: Project; inde
             loading="lazy"
             decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
         </div>
         {/* Content */}
         <div className="p-6">
