@@ -30,7 +30,7 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
 
         <div class="mt-5 reveal">
           <p class="font-display text-accent text-xl sm:text-2xl lg:text-3xl font-semibold h-8 sm:h-10 lg:h-12">
-            <span id="typewriter-text">Management Consultant</span><span class="typewriter-cursor" aria-hidden="true"></span>
+            <span id="typewriter-text"></span><span class="typewriter-cursor" aria-hidden="true"></span>
             <span class="sr-only">{roles.join(', ')}</span>
           </p>
           <div class="w-16 h-1 bg-gradient-to-r from-accent to-accent-sky rounded-full mt-3 mx-auto lg:mx-0"></div>
@@ -102,7 +102,7 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
         return;
       }
 
-      var pi = 0, ci = phrases[0].length, del = true;
+      var pi = 0, ci = 0, del = false;
 
       function tick() {
         var current = phrases[pi];
@@ -122,7 +122,7 @@ const roles = ["Management Consultant", "AI Product Builder", "Full Stack Engine
         setTimeout(tick, d);
       }
 
-      setTimeout(tick, 2200);
+      setTimeout(tick, 800);
     }
 
     // Try every strategy to ensure this runs
